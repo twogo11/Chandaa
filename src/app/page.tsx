@@ -1,56 +1,89 @@
 'use client';
-import { useState } from 'react';
-import PasswordProtection from '@/components/PasswordProtection';
+import { useState, useEffect } from 'react';
+import { Delete } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  const [showContent, setShowContent] = useState(false);
+export default function PasswordProtection() {
+  const [pin, setPin] = useState('');
+  const router = useRouter();
 
-  const handlePasswordCorrect = () => {
-    setShowContent(true);
+  const handleNumberClick = (num: string) => {
+    if (pin.length < 4) {
+      setPin(prev => prev + num);
+    }
   };
 
-  // Хэрэв нууц үг оруулаагүй бол PIN хуудсыг харуулна
-  if (!showContent) {
-    return <PasswordProtection onPasswordCorrect={handlePasswordCorrect} />;
-  }
+  const handleDelete = () => {
+    setPin(prev => prev.slice(0, -1));
+  };
 
-  // Нууц үг зөв үед харагдах "Matcha Style" контент
+  useEffect(() => {
+    if (pin.length === 4) {
+      router.push(`/${pin}`);
+      const timer = setTimeout(() => setPin(''), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [pin, router]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f1f3eb] font-sans p-6">
-      <main className="flex w-full max-w-2xl flex-col items-center justify-center bg-[#dce3c8] rounded-[3rem] py-16 px-10 shadow-2xl border-4 border-[#c2cca3] text-center animate-in fade-in zoom-in duration-700">
+    <div className="flex min-h-screen items-center justify-center bg-[#fff1f2] p-6">
+      <div className="w-full max-w-[340px] bg-[#ffe4e6] rounded-[3rem] shadow-2xl p-8 border-4 border-[#fecdd3]">
         
-        {/* Чиний өгсөн GIF-ийг энд байрлууллаа */}
-        <div className="relative mb-8 group">
-          <div className="absolute -inset-1 bg-[#b5bf93] rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-          <div className="relative bg-[#f1f3eb] p-2 rounded-3xl border-2 border-[#c2cca3] overflow-hidden shadow-lg">
+        {/* Header Section */}
+        <div className="flex flex-col items-center mb-8">
+          <div className="relative bg-[#fff1f2] p-2 rounded-3xl border-2 border-[#fecdd3] overflow-hidden shadow-lg">
             <img 
-              src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWZiM3VxZGZrNThhZmZqc3M0bTB0eXhlbGJyODVkbWJhMWRqdndkbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5YuoNNBoTtAxy7Ert9/giphy.gif" 
-              alt="Matcha Vibe GIF" 
+              src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGxiNGkwZGJnMWZ0b255dWk4cW55OWtieGtkNTk1Y2p5ZHowdjlnZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/35PYDhkVkOPEEAKzkc/giphy.gif" 
+              alt="Pink Vibe" 
               className="w-64 h-auto rounded-2xl"
             />
           </div>
+          <h2 className="mt-6 text-xl font-black text-[#be185d] tracking-[0.15em] uppercase text-center">
+            Guess whose birthday?
+          </h2>
         </div>
 
-        <div className="flex flex-col items-center gap-6">
-          <h1 className="text-4xl font-black leading-tight tracking-tight text-[#5c6645]">
-            Тавтай морил! 🍵
-          </h1>
+        {/* Display Dots */}
+        <div className="flex justify-center gap-6 mb-12">
+          {[...Array(4)].map((_, i) => (
+            <div
+              key={i}
+              className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                pin.length > i ? 'bg-[#db2777] scale-125' : 'bg-[#fca5a5]'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Keypad */}
+        <div className="grid grid-cols-3 gap-4 justify-items-center">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+            <button
+              key={num}
+              onClick={() => handleNumberClick(num.toString())}
+              className="h-16 w-16 flex items-center justify-center rounded-2xl bg-[#fff1f2] text-2xl font-bold text-[#be185d] shadow-[4px_4px_0px_#fca5a5] active:translate-y-1 active:shadow-none border border-[#fecdd3]"
+            >
+              {num}
+            </button>
+          ))}
           
-          <div className="h-1 w-20 bg-[#7e8c5d] rounded-full opacity-50"></div>
+          <div className="h-16 w-16"></div>
 
-          <p className="max-w-md text-lg leading-relaxed text-[#7e8c5d] font-medium">
-            Нууц код амжилттай баталгаажлаа. <br/>
-            Одоо та манай тусгай буланд нэвтэрч чадлаа.
-          </p>
-
-          <button 
-            onClick={() => setShowContent(false)}
-            className="mt-4 px-6 py-2 bg-[#7e8c5d] text-[#f1f3eb] rounded-full font-bold hover:bg-[#5c6645] transition-colors shadow-md active:scale-95"
+          <button
+            onClick={() => handleNumberClick('0')}
+            className="h-16 w-16 flex items-center justify-center rounded-2xl bg-[#fff1f2] text-2xl font-bold text-[#be185d] shadow-[4px_4px_0px_#fca5a5] active:translate-y-1 active:shadow-none border border-[#fecdd3]"
           >
-            Гарах
+            0
+          </button>
+
+          <button
+            onClick={handleDelete}
+            className="h-16 w-16 flex items-center justify-center rounded-2xl bg-[#ffe4e6] text-[#fb7185] active:scale-90 border border-[#fecdd3]"
+          >
+            <Delete size={26} strokeWidth={2.5} />
           </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
