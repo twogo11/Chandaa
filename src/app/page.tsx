@@ -26,7 +26,7 @@ export default function PasswordProtection() {
   }, [pin, router]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#fff1f2] p-6">
+    <div className="flex min-h-screen items-center justify-center bg-[#fff5f7] p-6">
       <div className="w-full max-w-[340px] bg-[#ffe4e6] rounded-[3rem] shadow-2xl p-8 border-4 border-[#fecdd3]">
         
         {/* Header Section */}
@@ -38,7 +38,7 @@ export default function PasswordProtection() {
               className="w-64 h-auto rounded-2xl"
             />
           </div>
-          <h2 className="mt-6 text-xl font-black text-[#be185d] tracking-[0.15em] uppercase text-center">
+          <h2 className="mt-6 text-xl font-black text-[#ad1457] tracking-[0.15em] uppercase text-center">
             Guess whose birthday?
           </h2>
         </div>
@@ -61,7 +61,7 @@ export default function PasswordProtection() {
             <button
               key={num}
               onClick={() => handleNumberClick(num.toString())}
-              className="h-16 w-16 flex items-center justify-center rounded-2xl bg-[#fff1f2] text-2xl font-bold text-[#be185d] shadow-[4px_4px_0px_#fca5a5] active:translate-y-1 active:shadow-none border border-[#fecdd3]"
+              className="h-16 w-16 flex items-center justify-center rounded-2xl bg-[#fff1f2] text-2xl font-bold text-[#ad1457] shadow-[4px_4px_0px_#fca5a5] active:translate-y-1 active:shadow-none border border-[#fecdd3]"
             >
               {num}
             </button>
@@ -71,7 +71,7 @@ export default function PasswordProtection() {
 
           <button
             onClick={() => handleNumberClick('0')}
-            className="h-16 w-16 flex items-center justify-center rounded-2xl bg-[#fff1f2] text-2xl font-bold text-[#be185d] shadow-[4px_4px_0px_#fca5a5] active:translate-y-1 active:shadow-none border border-[#fecdd3]"
+            className="h-16 w-16 flex items-center justify-center rounded-2xl bg-[#fff1f2] text-2xl font-bold text-[#ad1457] shadow-[4px_4px_0px_#fca5a5] active:translate-y-1 active:shadow-none border border-[#fecdd3]"
           >
             0
           </button>

@@ -1,45 +1,46 @@
 'use client';
+import Link from 'next/link'; // Link санг оруулж ирнэ
+import React from 'react';
 
 export default function Home() {
-  // Нууц үг болон төлөв (state) шалгах хэсгийг бүрэн хаслаа.
-  // Хуудас ачаалагдахад шууд энэ хэсэг харагдана.
-  
+  // Жагсаалтын жишээ өгөгдөл (Хоосон байхаар тохируулав)
+  const codeList = [
+    { id: 1, title: "Төсөл 1", desc: "Удахгүй орох код..." },
+    { id: 2, title: "Төсөл 2", desc: "Удахгүй орох код..." },
+    { id: 3, title: "Төсөл 3", desc: "Удахгүй орох код..." },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f1f3eb] font-sans p-6">
-      <main className="flex w-full max-w-2xl flex-col items-center justify-center bg-[#dce3c8] rounded-[3rem] py-16 px-10 shadow-2xl border-4 border-[#c2cca3] text-center animate-in fade-in zoom-in duration-700">
+    <div className="flex min-h-[100dvh] flex-col items-center bg-[#fff5f7] p-6 font-sans antialiased">
+      
+      {/* Үндсэн мэндчилгээ хэсэг */}
+      <main className="w-full max-w-sm flex flex-col items-center justify-center bg-white/60 backdrop-blur-md rounded-[3rem] py-12 px-8 shadow-[0_20px_50px_rgba(255,182,193,0.3)] border border-white/80 text-center animate-in fade-in zoom-in duration-1000">
         
-        {/* GIF хэсэг */}
-        <div className="relative mb-8 group">
-          <div className="absolute -inset-1 bg-[#b5bf93] rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-          <div className="relative bg-[#f1f3eb] p-2 rounded-3xl border-2 border-[#c2cca3] overflow-hidden shadow-lg">
-            <img 
-              src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmwxZGQ0NzFoazdqdzZuc2Nxa2Jyd2txMWFjdDFwbWtpOWg4Y2w4bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1zSz5MVw4zKg0/giphy.gif" 
-              alt="Matcha Vibe GIF" 
-              className="w-64 h-auto rounded-2xl"
-            />
-          </div>
+        <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-tr from-[#ffe5ec] to-white shadow-inner animate-bounce duration-[3000ms]">
+          <span className="text-3xl">✨</span>
         </div>
 
-        <div className="flex flex-col items-center gap-6">
-          <h1 className="text-4xl font-black leading-tight tracking-tight text-[#5c6645]">
-            Тавтай морил! 🍵
+        <div className="flex flex-col items-center gap-3">
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#ad1457]">
+            Сайн уу, Чандаа
           </h1>
           
-          <div className="h-1 w-20 bg-[#7e8c5d] rounded-full opacity-50"></div>
+          <div className="h-[3px] w-8 bg-[#880e4f] rounded-full"></div>
 
-          <p className="max-w-md text-lg leading-relaxed text-[#7e8c5d] font-medium">
-            Хуудас амжилттай ачаалагдлаа. <br/>
-            Одоо та манай тусгай буланд шууд нэвтэрч байна.
+          <p className="max-w-[240px] text-sm leading-relaxed text-[#ad1457] font-medium">
+            Чамд зориулж хийсэн сайтад тавтай морил! <br/>
+            тэгээд чи сайн код хийж ороод ирсэн ш дээ. Тэрэн шиг зөндөө их код байна. Энд жагсаалтыг үлдээ, сонирхоноос орж эхлээд үзээрэй.
           </p>
-
-          {/* Гарах товчийг хэвээр үлдээв, гэхдээ одоо логикгүй зүгээр л товчлуур болсон */}
-          <button 
-            className="mt-4 px-6 py-2 bg-[#7e8c5d] text-[#f1f3eb] rounded-full font-bold hover:bg-[#5c6645] transition-colors shadow-md active:scale-95"
-          >
-            Үргэлжлүүлэх
-          </button>
-        </div>
+        </div> <Link 
+          href="/" 
+          className="px-8 py-3 bg-[#ad1457] text-white font-bold rounded-full shadow-lg hover:bg-[#880e4f] transition-all duration-300 hover:scale-105 active:scale-95"
+        >
+          ← Буцах
+        </Link>
       </main>
+
+      
+
     </div>
   );
 }

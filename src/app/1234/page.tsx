@@ -1,44 +1,73 @@
 'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import confetti from 'canvas-confetti';
 
 export default function Home() {
-  // Нууц үг болон төлөв (state) шалгах хэсгийг бүрэн хаслаа.
-  // Хуудас ачаалагдахад шууд энэ хэсэг харагдана.
-  
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    if (!isClicked) {
+      // Салют буудуулах эффект
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ad1457', '#fecdd3', '#ff4081']
+      });
+      setIsClicked(true);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f1f3eb] font-sans p-6">
-      <main className="flex w-full max-w-2xl flex-col items-center justify-center bg-[#dce3c8] rounded-[3rem] py-16 px-10 shadow-2xl border-4 border-[#c2cca3] text-center animate-in fade-in zoom-in duration-700">
+    <div className="flex min-h-screen items-center justify-center bg-[#fff5f7] font-sans p-6">
+      <main className="flex w-full max-w-2xl flex-col items-center justify-center bg-[#ffe4e6] rounded-[3rem] py-16 px-10 shadow-2xl border-4 border-[#fecdd3] text-center animate-in fade-in zoom-in duration-700">
         
-        {/* GIF хэсэг */}
-        <div className="relative mb-8 group">
-          <div className="absolute -inset-1 bg-[#b5bf93] rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-          <div className="relative bg-[#f1f3eb] p-2 rounded-3xl border-2 border-[#c2cca3] overflow-hidden shadow-lg">
-            <img 
-              src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWZiM3VxZGZrNThhZmZqc3M0bTB0eXhlbGJyODVkbWJhMWRqdndkbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5YuoNNBoTtAxy7Ert9/giphy.gif" 
-              alt="Matcha Vibe GIF" 
-              className="w-64 h-auto rounded-2xl"
-            />
-          </div>
-        </div>
+        
 
-        <div className="flex flex-col items-center gap-6">
-          <h1 className="text-4xl font-black leading-tight tracking-tight text-[#5c6645]">
-            Тавтай морил! 🍵
-          </h1>
+        {/* Зургийн хэсэг */}
+        <div className="flex flex-col items-center gap-8">
           
-          <div className="h-1 w-20 bg-[#7e8c5d] rounded-full opacity-50"></div>
-
-          <p className="max-w-md text-lg leading-relaxed text-[#7e8c5d] font-medium">
-            Хуудас амжилттай ачаалагдлаа. <br/>
-            Одоо та манай тусгай буланд шууд нэвтэрч байна.
-          </p>
-
-          {/* Гарах товчийг хэвээр үлдээв, гэхдээ одоо логикгүй зүгээр л товчлуур болсон */}
-          <button 
-            className="mt-4 px-6 py-2 bg-[#7e8c5d] text-[#f1f3eb] rounded-full font-bold hover:bg-[#5c6645] transition-colors shadow-md active:scale-95"
+          <div 
+            onClick={handleClick}
+            className={`cursor-pointer transition-all duration-500 transform ${!isClicked ? 'animate-bounce' : 'scale-110'}`}
           >
-            Үргэлжлүүлэх
-          </button>
+            {!isClicked ? (
+              /* Зураг 1: Зургийн өөрийнх нь хэмжээгээр хүрээ нь гарна */
+              <div className="relative group inline-block"> 
+                <img 
+                  src="https://i.pinimg.com/736x/15/c4/c5/15c4c56b132a7e1ab53372783f5af8ec.jpg"
+                  alt="Эхний зураг" 
+                  className="max-w-xs w-full h-auto rounded-3xl border-4 border-[#ad1457] shadow-xl hover:scale-105 transition-all duration-300 object-contain"
+                />
+                <p className="mt-4 text-[#ad1457] font-bold animate-pulse text-sm tracking-wide text-center">
+                  Намайг дар! ✨
+                </p>
+              </div>
+            ) : (
+              /* Зураг 2: Энэ зураг ч мөн адил өөрийнхөө хэмжээгээр гарна */
+              <div className="animate-in zoom-in duration-500 inline-block">
+                <img 
+                  src="https://i.pinimg.com/736x/5f/d9/34/5fd9342ed6d5f5c401f5292c3750daac.jpg" 
+                  alt="Төрсөн өдрийн зураг" 
+                  className="max-w-xs w-full h-auto rounded-3xl border-4 border-[#ad1457] shadow-2xl transition-all object-contain"
+                />
+                <p className="mt-4 text-[#ad1457] font-black text-xl tracking-widest animate-bounce text-center">
+                  
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Буцах товч */}
+          <Link 
+            href="/" 
+            className="mt-4 px-8 py-3 bg-[#ad1457] text-white font-bold rounded-full shadow-lg hover:bg-[#880e4f] transition-all duration-300 hover:scale-105 active:scale-95"
+          >
+            ← Буцах
+          </Link>
         </div>
+        
       </main>
     </div>
   );
